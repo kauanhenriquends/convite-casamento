@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5efe4">
+<meta name="color-scheme" content="light">
+<title>Convite de casamento</title>
+<meta name="description" content="Você é nosso convidado. Veja os detalhes, escolha um presente e confirme sua presença.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<main class="page">
+  <!-- Fio dourado + aliança que acompanha a rolagem -->
+  <svg class="route" aria-hidden="true" focusable="false">
+    <path class="route-ghost"></path>
+    <path class="route-line"></path>
+    <g class="ring ring-end">
+      <circle r="10.5"></circle>
+    </g>
+    <g class="ring ring-move">
+      <circle r="10.5"></circle>
+      <path class="stone" d="M0 -17 L4 -12.5 L0 -9.5 L-4 -12.5 Z"></path>
+    </g>
+  </svg>
+
+  <!-- 1. Abertura -->
+  <header class="hero">
+    <p class="mono" data-bind="monograma"></p>
+    <p class="kicker" data-bind="abertura"></p>
+    <h1 class="names">
+      <span data-bind="noiva"></span>
+      <span class="amp">&amp;</span>
+      <span data-bind="noivo"></span>
+    </h1>
+    <p class="invite-line">convidam você para a celebração do seu casamento</p>
+
+    <div class="date-rule">
+      <span data-bind="diaSemana"></span>
+      <strong data-bind="dataCurta"></strong>
+      <span data-bind="cerimoniaHora"></span>
+    </div>
+    <p class="city" data-bind="cidade"></p>
+
+    <figure class="portrait">
+      <div class="portrait-empty">
+        <span class="portrait-mono" data-bind="monograma"></span>
+        <span class="portrait-note">foto do casal em breve</span>
+      </div>
+      <img src="assets/hero.jpg" alt="" onerror="this.remove()" onload="this.alt='Foto do casal'">
+    </figure>
+
+    <p class="countdown">faltam <strong data-count="dias">–</strong> dias</p>
+    <span class="route-start" aria-hidden="true"></span>
+  </header>
+
+  <div class="bend" data-from="c" data-to="g" aria-hidden="true"></div>
+
+  <!-- 2. História -->
+  <section class="block story" aria-labelledby="t-historia">
+    <p class="label reveal">Nossa história</p>
+    <h2 id="t-historia" class="reveal">Até aqui, <em>de mãos dadas</em></h2>
+    <ol class="milestones"></ol>
+  </section>
+
+  <!-- 3. O grande dia -->
+  <section class="block day" aria-labelledby="t-dia">
+    <p class="label reveal">O grande dia</p>
+    <h2 id="t-dia" class="reveal" data-bind="dataExtenso"></h2>
+
+    <dl class="details reveal">
+      <div>
+        <dt>Cerimônia</dt>
+        <dd><span class="hour" data-bind="cerimoniaHora"></span><span data-bind="cerimoniaLocal"></span><small data-bind="cerimoniaEndereco"></small></dd>
+      </div>
+      <div>
+        <dt>Recepção</dt>
+        <dd><span class="hour" data-bind="recepcaoHora"></span><span data-bind="recepcaoLocal"></span></dd>
+      </div>
+      <div>
+        <dt>Traje</dt>
+        <dd><span data-bind="traje"></span></dd>
+      </div>
+    </dl>
+
+    <div class="actions reveal">
+      <a class="btn btn-ink" data-bind-href="mapa" target="_blank" rel="noopener">Como chegar</a>
+      <button class="btn btn-line" type="button" id="add-cal">Salvar na agenda</button>
+    </div>
+  </section>
+
+  <!-- 4. Presentes -->
+  <section class="block gifts" id="presentes" aria-labelledby="t-presentes">
+    <p class="label reveal">Lista de presentes</p>
+    <h2 id="t-presentes" class="reveal">Um mimo para <em>a nova vida</em></h2>
+    <p class="lead reveal">Escolha um presente e finalize o pagamento no Mercado Pago, em ambiente seguro.</p>
+
+    <div class="tabs" role="group" aria-label="Filtrar presentes"></div>
+    <ul class="gift-list"></ul>
+  </section>
+
+  <div class="bend" data-from="g" data-to="c" aria-hidden="true"></div>
+
+  <!-- 5. Confirmação -->
+  <section class="rsvp" id="confirmar" aria-labelledby="t-confirmar">
+    <span class="route-end" aria-hidden="true"></span>
+    <p class="label label-center">Responda, por favor</p>
+    <h2 id="t-confirmar" class="rsvp-title">R.S.V.P.</h2>
+    <p class="lead lead-center" data-bind="prazo"></p>
+
+    <form class="card form" novalidate>
+      <label class="field">
+        <span>Nome completo</span>
+        <input name="nome" type="text" autocomplete="name" autocapitalize="words" maxlength="80" required placeholder="Como está no convite">
+      </label>
+
+      <fieldset class="field">
+        <legend>Sua resposta</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="presenca" value="sim" required><span>Com prazer, estarei presente</span></label>
+          <label class="choice"><input type="radio" name="presenca" value="nao"><span>Infelizmente, não poderei ir</span></label>
+        </div>
+      </fieldset>
+
+      <div class="field field-people" hidden>
+        <span id="l-pessoas">Quantas pessoas, contando você?</span>
+        <div class="stepper" role="group" aria-labelledby="l-pessoas">
+          <button type="button" data-step="-1" aria-label="Menos uma pessoa">−</button>
+          <output name="pessoas" aria-live="polite">1</output>
+          <button type="button" data-step="1" aria-label="Mais uma pessoa">+</button>
+        </div>
+      </div>
+
+      <label class="field">
+        <span>Recado para os noivos <em>(opcional)</em></span>
+        <textarea name="recado" rows="3" maxlength="300" placeholder="Escreva algo bonito"></textarea>
+      </label>
+
+      <p class="form-error" role="alert"></p>
+      <button class="btn btn-ink btn-block" type="submit">Enviar resposta</button>
+    </form>
+
+    <div class="card done" hidden tabindex="-1">
+      <p class="label label-center">Resposta recebida</p>
+      <h3 class="done-title"></h3>
+      <p class="done-text"></p>
+      <button class="btn btn-line" type="button" id="again">Nova resposta</button>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p class="mono" data-bind="monograma"></p>
+    <p class="footer-date" data-bind="dataCurta"></p>
+    <p class="footer-note">Contamos com você.</p>
+  </footer>
+</main>
+
+<a class="float-cta" href="#confirmar" aria-hidden="true" tabindex="-1">Confirmar presença</a>
+<div class="toast" role="status" aria-live="polite"></div>
+
+<script src="config.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
