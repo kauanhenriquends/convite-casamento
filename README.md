@@ -50,14 +50,18 @@ Se mudar o script depois, use **Implantar > Gerenciar implantações > editar > 
 
 ### 5. Ver no computador
 
-Na pasta `sol`, rode:
+Dentro da pasta do projeto, rode:
 
 ```bash
-python -m http.server 4180 --directory casamento
+python -m http.server 4180
 ```
 
 Depois, abra `http://localhost:4180`.
 
-### 6. Mandar para os convidados
+### 6. No ar
 
-O convite precisa estar na internet para abrir no celular dos convidados. As opções gratuitas mais simples são o Netlify Drop (é só arrastar a pasta `casamento`) e o GitHub Pages. Depois que estiver no ar, apague a linha `<meta name="robots" content="noindex, nofollow">` do `index.html` só se quiser que o convite apareça no Google. Para um convite, o normal é manter essa linha.
+O convite está publicado na Vercel: https://convite-casamento-kappa-beryl.vercel.app
+
+O projeto da Vercel está ligado a este repositório. Cada `git push` na branch `main` publica a versão nova sozinho, em cerca de um minuto.
+
+O `index.html` tem a linha `<meta name="robots" content="noindex, nofollow">`, que impede o convite de aparecer no Google. Para um convite, o normal é manter essa linha.
